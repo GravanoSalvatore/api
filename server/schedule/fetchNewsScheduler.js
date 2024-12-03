@@ -74,8 +74,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const CRYPTOCOMPARE_API =
-  "https://min-api.cryptocompare.com/data/v2/news/?categories=ADA,XRP,XLM,TRX,SHIBA,DOGE,EOS,LTC,USDT,&excludeCategories=Sponsored";
-
+  // "https://min-api.cryptocompare.com/data/v2/news/?categories=ADA,XRP,XLM,TRX,SHIBA,DOGE,EOS,LTC,USDT,&excludeCategories=Sponsored";
+  "https://min-api.cryptocompare.com/data/v2/news/?categories=EOS&excludeCategories=Sponsored";
 // Устанавливаем движок для перевода
 translate.engine = "google"; // Используется бесплатный движок Google Translate
 
