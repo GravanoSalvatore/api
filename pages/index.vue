@@ -111,22 +111,43 @@ export default {
     this.fetchNews();
   },
   methods: {
-    async fetchNews() {
-      this.loading = true;
-      try {
-        console.log("[Компонент] Запрос новостей с API...");
-         const response = await $fetch("/api/fetchNews");
-        //const response = await $fetch('https://api.cryptocurrencybulls.com/api/fetchNews');
+ 
+  async fetchNews() {
+    this.loading = true;
+    try {
+      console.log("[Компонент] Запрос новостей с API...");
+      const response = await $fetch("/api/fetchNews");
+      console.log("[Компонент] Ответ API:", response);
+      this.news = response.map((article) => ({
+        ...article,
+        title: article.title, // Отображается переведенный заголовок
+        body: article.body,   // Отображается переведенный текст
+      }));
+    } catch (err) {
+      console.error("[Компонент] Ошибка при запросе новостей:", err);
+      this.error = "Ошибка при загрузке новостей.";
+    } finally {
+      this.loading = false;
+    }
+  
+},
 
-        console.log("[Компонент] Ответ API:", response);
-        this.news = response;
-      } catch (err) {
-        console.error("[Компонент] Ошибка при запросе новостей:", err);
-        this.error = "Ошибка при загрузке новостей.";
-      } finally {
-        this.loading = false;
-      }
-    },
+    // async fetchNews() {
+    //   this.loading = true;
+    //   try {
+    //     console.log("[Компонент] Запрос новостей с API...");
+    //      const response = await $fetch("/api/fetchNews");
+    //     //const response = await $fetch('https://api.cryptocurrencybulls.com/api/fetchNews');
+
+    //     console.log("[Компонент] Ответ API:", response);
+    //     this.news = response;
+    //   } catch (err) {
+    //     console.error("[Компонент] Ошибка при запросе новостей:", err);
+    //     this.error = "Ошибка при загрузке новостей.";
+    //   } finally {
+    //     this.loading = false;
+    //   }
+    // },
     formatDate(timestamp) {
       const date = new Date(timestamp * 1000);
       return date.toLocaleDateString("ru-RU", {
